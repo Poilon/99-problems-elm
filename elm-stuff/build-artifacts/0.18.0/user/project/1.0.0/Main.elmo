@@ -2,9 +2,22 @@ var _user$project$Main$listrange = F2(
 	function (start, end) {
 		return A2(_elm_lang$core$List$range, start, end);
 	});
-var _user$project$Main$last = function (xs) {
-	return _elm_lang$core$List$head(
-		_elm_lang$core$List$reverse(xs));
+var _user$project$Main$penultimate = function (xs) {
+	penultimate:
+	while (true) {
+		var _p0 = _elm_lang$core$List$tail(xs);
+		if (_p0.ctor === 'Nothing') {
+			return _elm_lang$core$Maybe$Nothing;
+		} else {
+			if ((_p0._0.ctor === '::') && (_p0._0._1.ctor === '[]')) {
+				return _elm_lang$core$List$head(xs);
+			} else {
+				var _v1 = _p0._0;
+				xs = _v1;
+				continue penultimate;
+			}
+		}
+	}
 };
 var _user$project$Main$test = _elm_lang$core$List$length(
 	A2(
@@ -16,45 +29,86 @@ var _user$project$Main$test = _elm_lang$core$List$length(
 		{
 			ctor: '::',
 			_0: _elm_lang$core$Native_Utils.eq(
-				_user$project$Main$last(
-					A2(_user$project$Main$listrange, 1, 4)),
-				_elm_lang$core$Maybe$Just(4)),
+				_user$project$Main$penultimate(
+					{
+						ctor: '::',
+						_0: 1,
+						_1: {
+							ctor: '::',
+							_0: 2,
+							_1: {
+								ctor: '::',
+								_0: 3,
+								_1: {
+									ctor: '::',
+									_0: 4,
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}),
+				_elm_lang$core$Maybe$Just(3)),
 			_1: {
 				ctor: '::',
 				_0: _elm_lang$core$Native_Utils.eq(
-					_user$project$Main$last(
+					_user$project$Main$penultimate(
 						{
 							ctor: '::',
 							_0: 1,
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: 2,
+								_1: {ctor: '[]'}
+							}
 						}),
 					_elm_lang$core$Maybe$Just(1)),
 				_1: {
 					ctor: '::',
 					_0: _elm_lang$core$Native_Utils.eq(
-						_user$project$Main$last(
-							{ctor: '[]'}),
+						_user$project$Main$penultimate(
+							{
+								ctor: '::',
+								_0: 1,
+								_1: {ctor: '[]'}
+							}),
 						_elm_lang$core$Maybe$Nothing),
 					_1: {
 						ctor: '::',
 						_0: _elm_lang$core$Native_Utils.eq(
-							_user$project$Main$last(
-								{
-									ctor: '::',
-									_0: _elm_lang$core$Native_Utils.chr('a'),
-									_1: {
+							_user$project$Main$penultimate(
+								{ctor: '[]'}),
+							_elm_lang$core$Maybe$Nothing),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$core$Native_Utils.eq(
+								_user$project$Main$penultimate(
+									{
 										ctor: '::',
-										_0: _elm_lang$core$Native_Utils.chr('b'),
+										_0: 'a',
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$core$Native_Utils.chr('c'),
-											_1: {ctor: '[]'}
+											_0: 'b',
+											_1: {
+												ctor: '::',
+												_0: 'c',
+												_1: {ctor: '[]'}
+											}
 										}
-									}
-								}),
-							_elm_lang$core$Maybe$Just(
-								_elm_lang$core$Native_Utils.chr('c'))),
-						_1: {ctor: '[]'}
+									}),
+								_elm_lang$core$Maybe$Just('b')),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Native_Utils.eq(
+									_user$project$Main$penultimate(
+										{
+											ctor: '::',
+											_0: 'a',
+											_1: {ctor: '[]'}
+										}),
+									_elm_lang$core$Maybe$Nothing),
+								_1: {ctor: '[]'}
+							}
+						}
 					}
 				}
 			}
@@ -62,8 +116,8 @@ var _user$project$Main$test = _elm_lang$core$List$length(
 var _user$project$Main$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(
 	_elm_lang$html$Html$text(
 		function () {
-			var _p0 = _user$project$Main$test;
-			switch (_p0) {
+			var _p1 = _user$project$Main$test;
+			switch (_p1) {
 				case 0:
 					return 'Your implementation passed all tests.';
 				case 1:
@@ -74,7 +128,7 @@ var _user$project$Main$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProg
 						'Your implementation failed ',
 						A2(
 							_elm_lang$core$Basics_ops['++'],
-							_elm_lang$core$Basics$toString(_p0),
+							_elm_lang$core$Basics$toString(_p1),
 							' tests.'));
 			}
 		}()));

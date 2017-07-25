@@ -7,15 +7,12 @@ import Maybe
 
 penultimate : List a -> Maybe a
 penultimate xs =
-    case List.tail xs of
-        Nothing ->
+    case List.reverse xs of
+        [] ->
             Nothing
 
-        Just [ _ ] ->
-            List.head xs
-
-        Just rest ->
-            penultimate rest
+        e :: rest ->
+            List.head rest
 
 
 main : Html.Html a

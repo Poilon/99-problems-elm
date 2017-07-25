@@ -3,20 +3,11 @@ var _user$project$Main$listrange = F2(
 		return A2(_elm_lang$core$List$range, start, end);
 	});
 var _user$project$Main$penultimate = function (xs) {
-	penultimate:
-	while (true) {
-		var _p0 = _elm_lang$core$List$tail(xs);
-		if (_p0.ctor === 'Nothing') {
-			return _elm_lang$core$Maybe$Nothing;
-		} else {
-			if ((_p0._0.ctor === '::') && (_p0._0._1.ctor === '[]')) {
-				return _elm_lang$core$List$head(xs);
-			} else {
-				var _v1 = _p0._0;
-				xs = _v1;
-				continue penultimate;
-			}
-		}
+	var _p0 = _elm_lang$core$List$reverse(xs);
+	if (_p0.ctor === '[]') {
+		return _elm_lang$core$Maybe$Nothing;
+	} else {
+		return _elm_lang$core$List$head(_p0._1);
 	}
 };
 var _user$project$Main$test = _elm_lang$core$List$length(

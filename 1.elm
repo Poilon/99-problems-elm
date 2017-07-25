@@ -7,7 +7,6 @@ import Maybe
 
 last : List a -> Maybe a
 last xs =
-    -- your implementation goes here
     List.head (List.reverse xs)
 
 

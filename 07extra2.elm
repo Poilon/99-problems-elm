@@ -6,7 +6,6 @@ import List
 
 takeWhile : (a -> Bool) -> List a -> List a
 takeWhile predicate list =
-    -- your implementation here
     case list of
         [] ->
             []
